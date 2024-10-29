@@ -1,0 +1,26 @@
+name: CI Workflow
+
+on:
+  pull_request:
+    branches:
+      - main  # Запускать workflow для PR в ветку main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Merge Pull Request
+        uses: "peter-evans/merge-pull-request@v3"
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pull_request_number: ${{ github.event.pull_request.number }}
