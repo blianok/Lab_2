@@ -1,6 +1,6 @@
-name: Test Workflow
+name: CI Workflow
 
-on: 
+on:
   push:
     branches:
       - main
@@ -11,8 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run a simple command
-        run: echo "Hello, World! This is a test workflow."
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
